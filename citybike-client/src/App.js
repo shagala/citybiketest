@@ -18,13 +18,15 @@ class App extends Component {
   componentDidMount() {
     const { endpoint } = this.state;
     const socket = socketIOClient(endpoint);
-    socket.on("FromAPI", data => this.setState({ response: data }));
+   
   }
   render() {
     const { response } = this.state;
     const position = [this.state.lat, this.state.lng]
     return (
+
       <div className="map">
+        <h1> City Bikes in Miami </h1>
         <Map center={position} zoom={this.state.zoom}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
