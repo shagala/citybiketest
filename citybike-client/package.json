@@ -1,10 +1,14 @@
 {
   "name": "citybike-client",
   "version": "0.1.0",
+  "author": "SmartHop Inc",
+  "license": "ISC",
+  "description": "Miami Bike",
+  "repository": "git@github.com:shagala/citybiketest.git",
   "private": true,
   "dependencies": {
-    "fsevents": "^2.0.1",
     "leaflet": "^1.3.4",
+    "moment": "^2.22.2",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-leaflet": "^2.1.2",
