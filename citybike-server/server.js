@@ -29,15 +29,14 @@ io.on("connection", socket => {
   });
 });
 
+
 const getApiAndEmit = async socket => {
-  try {
-    const res = await axios.get(
-      "http://api.citybik.es/v2/networks/decobike-miami-beach"
-    );
-    //socket.emit("FromAPI", res.data.currently.temperature);
-  } catch (error) {
-    console.error(`Error: ${error.code}`);
-  }
+  console.log("get api and emit");
+  const res = await axios.get("http://api.citybik.es/v2/networks/decobike-miami-beach");
+  console.log("antes de emitir mensaje");
+  //console.log(res);
+  //console.log(res.data.network.stations);
+  socket.emit("messages", res.data.network.stations);
 };
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
