@@ -20,10 +20,6 @@ io.on("connection", socket => {
   var socketId = socket.id;
   var clientIp = socket.request.connection.remoteAddress;
   console.log('New connection ' + socketId + ' from ' + clientIp);
-  if (interval) {
-    clearInterval(interval);
-  }
-  interval = setInterval(() => getApiAndEmit(socket), 1000);
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
@@ -34,8 +30,8 @@ const getApiAndEmit = async socket => {
     const res = await axios.get(
       "http://api.citybik.es/v2/networks/decobike-miami-beach"
     );
-    //socket.emit("FromAPI", res.data.currently.temperature);
-  } catch (error) {
+  
+    } catch (error) {
     console.error(`Error: ${error.code}`);
   }
 };
