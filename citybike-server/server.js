@@ -1,7 +1,7 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
-const axios = require("axios");
+const citybikeurl = "http://api.citybik.es/v2/networks/decobike-miami-beach"
 
 
 
@@ -25,16 +25,7 @@ io.on("connection", socket => {
   });
 });
 
-const getApiAndEmit = async socket => {
-  try {
-    const res = await axios.get(
-      "http://api.citybik.es/v2/networks/decobike-miami-beach"
-    );
-  
-    } catch (error) {
-    console.error(`Error: ${error.code}`);
-  }
-};
+
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
 
