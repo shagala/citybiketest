@@ -1,0 +1,16 @@
+Se detalla los cambios realizados y consideraciones a tomar
+
+# Dependencias y paquetes
+Se cambio la version de leaflet de ^1.3.4 a ^1.4.0
+Se cambio la version de react-scripts de 2.1.1 a ^2.1.8
+Se quito la dependencia fsevents ^2.0.1
+
+# Scripts y .json
+Solo se modificaron los scripts:
+	 App.js ubicado en citybike-client/src
+	 server.js ubicado en citybike-server
+	 package.json en citybike-client
+
+Se agrego Circle y CircleMarker para mejorar la interfaz de las estaciones de bicicletas en App.js
+
+Es posible que a veces no se pueda acceder a la pagina de la api de la estacion de bicicletas, se despliega un excepcion en el catch de la lectura de la api en server.js, se recomienda usar, para este caso, un vpn.
