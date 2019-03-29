@@ -9,7 +9,6 @@ class App extends Component {
     super();
 
     this.state = {
-      response: false,
       endpoint: "http://127.0.0.1:4001",
       lat: 25.790654,
       lng: -80.1300455,
@@ -57,7 +56,6 @@ class App extends Component {
   };
 
   render() {
-    const { response } = this.state;
     const position = [this.state.lat, this.state.lng];
 
     return (
