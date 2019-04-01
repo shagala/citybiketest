@@ -1,33 +1,30 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
-const citybikeurl = "http://api.citybik.es/v2/networks/decobike-miami-beach"
-
-
-
-const port = process.env.PORT || 4001;
+const axios = require("axios");
+const port = process.env.PORT || 4000;
 const index = require("./routes/index");
 const app = express();
-
 
 app.use(index);
 
 const server = http.createServer(app);
-const io = socketIo(server); // < Interesting!
-let interval;
-
+const io = socketIo(server);
 io.on("connection", socket => {
-  var socketId = socket.id;
-  var clientIp = socket.request.connection.remoteAddress;
-  console.log('New connection ' + socketId + ' from ' + clientIp);
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-  });
+  console.log("New client connected"), setInterval(
+    () => getApiAndEmit(socket),
+    10000
+  );
+  socket.on("disconnect", () => console.log("Client disconnected"));
 });
-
-
-
+const getApiAndEmit = async socket => {
+  try {
+    const res = await axios.get(
+      "http://api.citybik.es/v2/networks/decobike-miami-beach"
+    );
+    socket.emit("FromAPI", res.data.network.stations);
+  } catch (error) {
+    console.error(`Error: ${error.code}`);
+  }
+};
 server.listen(port, () => console.log(`Listening on port ${port}`));
-
-
-
