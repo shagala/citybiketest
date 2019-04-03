@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import socketIOClient from "socket.io-client";
+import { renderToStaticMarkup } from 'react-dom/server';
+import { divIcon } from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
 class App extends Component {
@@ -19,6 +21,7 @@ class App extends Component {
 
   }
 
+  // Funcion para crear los marcadores en el mapa.
   createMarkers () {
 
     let markers = []
@@ -26,14 +29,14 @@ class App extends Component {
       markers.push(
         <Marker key={j} position={[this.state.stations[j]['latitude'], this.state.stations[j]['longitude']]}>
           <Popup>
-            <span> Bikes availables: { this.state.stations[j]['free_bikes'] } </span>
+            <span> There are -{ this.state.stations[j]['free_bikes'] }- bikes availables at : { this.state.stations[j]['name'] }  </span>
           </Popup>
         </Marker>
       )
     }
-    console.log(markers)
     return markers;
   }
+
 
   componentDidMount() {
     const { endpoint } = this.state;
@@ -58,6 +61,7 @@ class App extends Component {
   render() {
     const { response } = this.state;
     const position = [this.state.lat, this.state.lng]
+
     return (
 
       <div className="map">
