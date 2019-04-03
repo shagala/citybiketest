@@ -6,20 +6,55 @@ class App extends Component {
   constructor() {
     super();
 
+    this.mapref = React.createRef();
+
     this.state = {
       response: false,
       endpoint: "http://127.0.0.1:4001",
       lat: 51.505,
       lng: -0.09,
-      zoom: 13
+      zoom: 13,
+      stations: []
     };
 
   }
+
+  createMarkers () {
+
+    let markers = []
+    for (let j = 0; j < this.state.stations.length; j++) {
+      markers.push(
+        <Marker key={j} position={[this.state.stations[j]['latitude'], this.state.stations[j]['longitude']]}>
+          <Popup>
+            <span> Bikes availables: { this.state.stations[j]['free_bikes'] } </span>
+          </Popup>
+        </Marker>
+      )
+    }
+    console.log(markers)
+    return markers;
+  }
+
   componentDidMount() {
     const { endpoint } = this.state;
     const socket = socketIOClient(endpoint);
-   
+    socket.on('location', function (location) {
+      this.setState({
+        lat: location['latitude'],
+        lng: location['longitude']
+      });
+    }.bind(this));
+
+
+    socket.on('stations', function (stations) {
+      this.setState({
+        stations: stations
+      });
+    }.bind(this));
+
   }
+
+
   render() {
     const { response } = this.state;
     const position = [this.state.lat, this.state.lng]
@@ -27,14 +62,16 @@ class App extends Component {
 
       <div className="map">
         <h1> City Bikes in Miami </h1>
-        <Map center={position} zoom={this.state.zoom}>
+        <Map center={position} zoom={this.state.zoom} ref={this.mapref}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {this.createMarkers()}
         </Map>
       </div>
     );
   }
 }
 export default App;
+
