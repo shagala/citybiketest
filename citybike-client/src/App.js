@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import socketIOClient from "socket.io-client";
-import { renderToStaticMarkup } from 'react-dom/server';
-import { divIcon } from 'leaflet';
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
 class App extends Component {
