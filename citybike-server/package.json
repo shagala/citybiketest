@@ -9,8 +9,8 @@
   "author": "SmartHop Inc",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
-    "express": "^4.16.4",
-    "socket.io": "^2.1.1"
+    "axios": "^0.18.1",
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0"
   }
 }
