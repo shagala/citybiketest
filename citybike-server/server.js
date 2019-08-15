@@ -22,10 +22,7 @@ io.on("connection", socket => {
   var clientIp = socket.request.connection.remoteAddress;
   console.log('New connection ' + socketId + ' from ' + clientIp);
 
-  if (interval) {
-    clearInterval(interval);
-  }
-  // Se establece el intervalo  en 6000 ms 
+ //Se establece el intervalo  en 6000 ms 
   interval = setInterval(() => obtenerApi(socket), 6000);
   socket.on("disconnect", () => {
     console.log("Client disconnected");
@@ -37,8 +34,8 @@ const obtenerApi = async socket => {
 
   try {
     const mensaje  = await axios.get(citybikeurl);  
-    socket.emit("cityBici", mensaje.data)  
-    console.log(mensaje.data.network.stations)
+    socket.emit("cityBici", mensaje.data)   
+    //console.log(mensaje.data.network.stations)
 
   } catch (error) {
 
