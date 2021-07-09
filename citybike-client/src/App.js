@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import socketIOClient from "socket.io-client";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
-import { imageOverlay } from "leaflet";
-
 class App extends Component {
   constructor() {
     super();
@@ -35,17 +33,15 @@ class App extends Component {
     return (
 
       <div className="map">
-        <h1> City Bikes in Miami </h1>
-          {console.log(stations)}
-        <Map center={position} zoom={this.state.zoom}>
+        <h1> City Bikes in Miami </h1>          
+        <Map className="map-container" center={position} zoom={this.state.zoom}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {
             stations.length > 0 && stations.map((station)=>(
-              <Marker key={station.id} position={[station.latitude, station.longitude]}>
-                {console.log(station)}
+              <Marker key={station.id} position={[station.latitude, station.longitude]}>               
                 <Popup>
                   <h2>{station.name}</h2>
                   <h3>Empty slots: {station.empty_slots}</h3>
@@ -53,10 +49,10 @@ class App extends Component {
 
               </Marker>
             ))
-          }
-          
+          } 
           
         </Map>
+        <p>Developed by <a href="https://github.com/cosmosoftroot/citybiketest" target="__blank">Iván Darío Sánchez Jiménez</a></p>
       </div>
     );
   }
