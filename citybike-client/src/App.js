@@ -17,6 +17,13 @@ class App extends Component {
   }
   
   componentDidMount() {
+    setInterval(()=>{
+      this.getData()
+    },60000)
+    
+  }
+
+  getData = () =>{
     const self= this
     const { endpoint } = this.state;
     const socket = socketIOClient(endpoint);
@@ -24,8 +31,6 @@ class App extends Component {
       const result = JSON.parse(data)
       self.setState({stations: result.network.stations})
     })
-
-   
   }
   render() {
     const { stations } = this.state;
