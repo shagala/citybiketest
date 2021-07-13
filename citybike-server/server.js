@@ -10,23 +10,17 @@ const app = express();
 
 app.use(index);
 
-app.use("/statistics", (req, res) => {
+app.use("/stats", (req, res) => {
   axios.get(citybikeurl).then(result => {    
-
     const stationUsageRatio = [];
-
     result.data.network.stations.map(station => {
       const totalBikesAllowed = station.free_bikes + station.empty_slots;
       const freeBikesRatio = station.free_bikes / totalBikesAllowed;
       const emptySlotsRatio = station.empty_slots / totalBikesAllowed;
       stationUsageRatio.push({...station, freeBikesRatio: freeBikesRatio, emptySlotsRatio: emptySlotsRatio});
     });
-
     const topEmpty = stationUsageRatio.sort((a,b) => b.emptySlotsRatio - a.emptySlotsRatio).slice(0,4);
     const topUsed = stationUsageRatio.sort((a,b) => a.freeBikesRatio - b.freeBikesRatio).slice(0,4);
-
-    //const topUsed = result.data.network.stations.map(x => ({name: x.name, id: x.id, free_bikes: x.free_bikes, empty_slots: x.empty_slots})).sort((a,b) => a.free_bikes - b.free_bikes).slice(0,4);
-    //const topEmpty = result.data.network.stations.map(x => ({name: x.name, id: x.id, free_bikes: x.free_bikes, empty_slots: x.empty_slots})).sort((a,b) => a.empty_slots - b.empty_slots).slice(0,4);    
     res.setHeader('Content-Type', 'application/json');
     res.send({topUsedStations: topUsed, topEmptyStations: topEmpty}).status(200);
   }).catch(err => {
