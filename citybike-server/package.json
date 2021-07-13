@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js -e ejs,js,css,html,jpg,png,scss"
   },
   "author": "SmartHop Inc",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "express": "^4.16.4",
     "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.11"
   }
 }
